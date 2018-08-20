@@ -108,3 +108,9 @@ class TestRotatingExportFile(TestCase):
         zipfile.add_file(*generate_zero_byte_string(X_5MB))
         zipfile.close()
         self.assertNotEqual(len(zipfile.in_memory_buffer.getvalue()), X_5MB)
+
+    def test_big_file(self):
+        zipfile = RotatingExportFile(self.export)
+
+        zipfile.add_file(*generate_random_byte_string(1000*X_1MB))
+        zipfile.close()
